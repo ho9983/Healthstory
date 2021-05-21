@@ -123,14 +123,12 @@
                 status = "openArm"
             } else if (prediction[1].probability.toFixed(2) == 1.00) {
                 status = "closeArm"
-            } else {
-                
-            }
+            } 
             
             for (let i = 0; i < maxPredictions; i++) {
                 const classPrediction =
                     prediction[i].className + ": " + prediction[i].probability.toFixed(1);
-                labelContainer.childNodes[i].innerHTML = classPrediction;
+                //labelContainer.childNodes[i].innerHTML = classPrediction;
             }
 
             // finally draw the poses

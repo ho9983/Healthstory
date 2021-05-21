@@ -32,7 +32,7 @@
         </div>
         <h1>인공지능(AI) Fitness Trainer</h1>
         <button class="btn btn-primary"type="button" onclick="init()">Start</button>
-        <button class="btn btn-primary"type="button" onclick="latt()">stop</button>        
+        <button class="btn btn-secondary"type="button" onclick="latt()">stop</button>        
         <div><canvas id="canvas"></canvas></div>
         <div id="label-container"></div>
     </div>
@@ -57,7 +57,7 @@
         const URL = "./my_model/";
         let model, webcam, ctx, labelContainer, maxPredictions;
         //let model2;
-        let latt1;
+        
         
         async function init() {
             const modelURL = URL + "model.json";
@@ -90,8 +90,8 @@
             }
         }
         async function latt(){
-            webcam.pause();
-
+            webcam.stop();
+            
         }
 
         async function loop(timestamp) {
@@ -124,12 +124,12 @@
             } else if (prediction[1].probability.toFixed(2) == 1.00) {
                 status = "closeArm"
             } else {
-
+                
             }
             
             for (let i = 0; i < maxPredictions; i++) {
                 const classPrediction =
-                    prediction[i].className + ": " + prediction[i].probability.toFixed(2);
+                    prediction[i].className + ": " + prediction[i].probability.toFixed(1);
                 labelContainer.childNodes[i].innerHTML = classPrediction;
             }
 

@@ -128,7 +128,7 @@
             for (let i = 0; i < maxPredictions; i++) {
                 const classPrediction =
                     prediction[i].className + ": " + prediction[i].probability.toFixed(1);
-                //labelContainer.childNodes[i].innerHTML = classPrediction;
+                labelContainer.childNodes[i].innerHTML = classPrediction;
             }
 
             // finally draw the poses
@@ -140,8 +140,8 @@
                 ctx.drawImage(webcam.canvas, 0, 0);
                 // draw the keypoints and skeleton
                 if (pose) {
-                    const minPartConfidence = 0.1; //최소 포징 포인트
-                    //tmPose.drawKeypoints(pose.keypoints, minPartConfidence, ctx);
+                    const minPartConfidence = 0.5; //최소 포징 포인트
+                    tmPose.drawKeypoints(pose.keypoints, minPartConfidence, ctx);
                     tmPose.drawSkeleton(pose.keypoints, minPartConfidence, ctx);
                   
                 }

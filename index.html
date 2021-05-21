@@ -32,7 +32,7 @@
         </div>
         <h1>인공지능(AI) Fitness Trainer</h1>
         <button class="btn btn-primary"type="button" onclick="init()">Start</button>
-        <button class="btn btn-secondary"type="button" onclick="latt()">stop</button>        
+        <button class="btn btn-secondary"type="button" onclick="down()">Shut Cam</button>
         <div><canvas id="canvas"></canvas></div>
         <div id="label-container"></div>
     </div>
@@ -57,7 +57,7 @@
         const URL = "./my_model/";
         let model, webcam, ctx, labelContainer, maxPredictions;
         //let model2;
-        
+        let mCamera;
         
         async function init() {
             const modelURL = URL + "model.json";
@@ -90,6 +90,10 @@
             }
         }
 
+        async function down(){
+            webcam.stop();
+        }
+
         async function loop(timestamp) {
             webcam.update(); // update the webcam frame
             await predict();
@@ -104,7 +108,7 @@
             const { pose, posenetOutput } = await model.estimatePose(webcam.canvas);
             // Prediction 2: run input through teachable machine classification model
             const prediction = await model.predict(posenetOutput);
-            if (prediction[0].probability.toFixed(2) > 1.00) {
+            if (prediction[0].probability.toFixed(2) > 0.90) {
                 if (status == "closeArm") {
                     count++
                     var audio = new Audio('countSound.mp3');
@@ -138,7 +142,6 @@
                 if (pose) {
                     const minPartConfidence = 0.5; //최소 포징 포인트
                     tmPose.drawKeypoints(pose.keypoints, minPartConfidence, ctx);
-                    //keypoints : 화면에 보이는 민트색 점
                     tmPose.drawSkeleton(pose.keypoints, minPartConfidence, ctx);
                   
                 }

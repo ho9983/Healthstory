@@ -127,7 +127,7 @@
             
             for (let i = 0; i < maxPredictions; i++) {
                 const classPrediction =
-                    prediction[i].className + ": " + prediction[i].probability.toFixed(1);
+                    prediction[i].className + ": " + prediction[i].probability.toFixed(2);
                 labelContainer.childNodes[i].innerHTML = classPrediction;
             }
 
@@ -142,6 +142,7 @@
                 if (pose) {
                     const minPartConfidence = 0.5; //최소 포징 포인트
                     tmPose.drawKeypoints(pose.keypoints, minPartConfidence, ctx);
+                    //keypoints : 화면에 보이는 민트색 점
                     tmPose.drawSkeleton(pose.keypoints, minPartConfidence, ctx);
                   
                 }
